@@ -20,33 +20,19 @@ A full-stack student story platform where users share and discover university ex
 
 ```mermaid
 flowchart TD
-    Browser(["Browser"])
-    
-    subgraph Docker ["Docker Compose"]
-        Frontend["Frontend<br/>nginx:alpine, port 8000"]
-        
-        subgraph Backend ["Backend (Express 5, port 5000)"]
-            direction TB
-            Auth["Auth routes<br/>No JWT check"]
-            Tales["Tales / user / notifications<br/>Per-route JWT check"]
-            Admin["Admin routes<br/>Router-level JWT + admin check"]
-            Auth ~~~ Tales ~~~ Admin
-        end
-        
-        Frontend --> Backend
+    A[Browser frontend - Vanilla JS] --> B[Express server]
+    B --> C[JWT auth middleware - per route]
+    B --> D[Groq moderation pipeline - llama-3.3-70b]
+    C --> E[Routes: auth, tales, user, notifications, admin]
+    D --> E
+    E --> F[(PostgreSQL)]
+    E --> G[Resend API - OTP emails]
+    E --> H[Cloudinary - profile pictures]
+    subgraph Docker Compose
+      A
+      B
+      F
     end
-    
-    Browser --> Docker
-    
-    Postgres[("Postgres<br/>Neon")]
-    Groq["Groq API<br/>Called from tales/user"]
-    Resend["Resend<br/>Reset link, not OTP"]
-    Uploads["/uploads<br/>Docker volume"]
-    
-    Backend --> Postgres
-    Backend --> Groq
-    Backend --> Resend
-    Backend --> Uploads
 ```
 
 *Auth: JWT + bcrypt. No global middleware — each route file checks per-endpoint.*
@@ -57,7 +43,7 @@ flowchart TD
 - Sign up/login with JWT-based authentication
 - Post, edit and delete personal stories ("tales")
 - Browse and discover stories shared by other students
-- Receive real-time notifications for likes, comments, and admin announcements
+- In-app notifications for story activity
 - Password reset link via Resend, token expires in 1 hour
 
 **Content Moderation**
@@ -82,6 +68,7 @@ flowchart TD
 | Frontend | Vanilla HTML/CSS/JS |
 | Backend | Node.js, Express 5 |
 | DB | PostgreSQL |
+| File storage | Cloudinary (profile pictures) |
 | Auth | JWT, bcrypt |
 | Email | Resend (Reset link) |
 | Moderation | Groq SDK |
@@ -92,7 +79,7 @@ flowchart TD
 
 - **Docker Compose**: frontend, backend and database run as separate services locally with one command (`docker-compose up --build`), keeping the dev environment identical across machines and closer to how it would be deployed.
 - **Groq SDK for moderation**: story submissions are run through Groq's inference API before insertion, so toxic or policy-violating content is caught pre-publish rather than relying on manual review after the fact.
-- **GitHub Actions**: every push runs an automated pipeline (lint/build/test) so regressions are caught before merge, rather than after deployment.
+- **GitHub Actions**: installs dependencies on every push. Lint/build/test steps aren't wired up yet — see the # TODO in ci.yml.
 
 ## Project structure
 
