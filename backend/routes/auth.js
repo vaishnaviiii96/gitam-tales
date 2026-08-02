@@ -128,7 +128,8 @@ router.post("/forgot-password", async (req, res) => {
       [resetToken, tokenExpires, email]
     );
 
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:8000';
+    const rawFrontendUrl = process.env.FRONTEND_URL || 'http://localhost:8000';
+    const frontendUrl = rawFrontendUrl.endsWith('/') ? rawFrontendUrl.slice(0, -1) : rawFrontendUrl;
     const resetLink = `${frontendUrl}/reset-password.html?token=${resetToken}`;
 
     await resend.emails.send({

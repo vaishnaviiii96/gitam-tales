@@ -12,7 +12,9 @@ console.log("2. Routes loaded.");
 
 const app = express();
 
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:8000' }));
+const rawOrigin = process.env.FRONTEND_URL || 'http://localhost:8000';
+const allowedOrigin = rawOrigin.endsWith('/') ? rawOrigin.slice(0, -1) : rawOrigin;
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
