@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - GitamTales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+        body { background: #f4f6f5; margin: 0; }
+
+        /* ── Header ── */
+        .gt-header { background: #004b44; }
+        .gt-header nav { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .gt-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .gt-logo-icon { width: 30px; height: 30px; background: #fff; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .gt-logo-text { color: #fff; font-size: 17px; font-weight: 600; }
+        .gt-admin-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 5px; letter-spacing: 0.06em; text-transform: uppercase; }
+        .gt-header-right { display: flex; align-items: center; gap: 12px; }
+        .gt-back-link { color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 500; text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.15s; }
+        .gt-back-link:hover { color: #fff; background: rgba(255,255,255,0.1); }
+        .gt-logout-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 7px; cursor: pointer; transition: all 0.15s; }
+        .gt-logout-btn:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Main ── */
+        .gt-main { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
+
+        /* ── Page title ── */
+        .gt-page-title { font-size: 22px; font-weight: 800; color: #111827; letter-spacing: -0.5px; margin-bottom: 4px; }
+        .gt-page-sub { font-size: 13px; color: #9ca3af; margin-bottom: 24px; }
+
+        /* ── Stats row ── */
+        .gt-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+        @media (max-width: 600px) { .gt-stats { grid-template-columns: 1fr; } }
+        .gt-stat { background: #fff; border: 0.5px solid #d5e0dd; border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; }
+        .gt-stat-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .gt-stat-icon.users { background: #e0f0ee; }
+        .gt-stat-icon.tales { background: #fef3c7; }
+        .gt-stat-icon.comments { background: #ede9fe; }
+        .gt-stat-num { font-size: 26px; font-weight: 800; color: #111827; letter-spacing: -0.5px; line-height: 1; }
+        .gt-stat-lbl { font-size: 12px; color: #9ca3af; margin-top: 3px; font-weight: 500; }
+
+        /* ── Tabs ── */
+        .gt-tabs { display: flex; gap: 6px; margin-bottom: 20px; border-bottom: 0.5px solid #d5e0dd; padding-bottom: 0; }
+        .gt-tab { font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 8px 8px 0 0; cursor: pointer; color: #9ca3af; background: transparent; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+        .gt-tab:hover { color: #374151; }
+        .gt-tab.active { color: #006A60; border-bottom-color: #006A60; }
+
+        /* ── Panel ── */
+        .gt-panel { display: none; }
+        .gt-panel.active { display: block; }
+
+        /* ── Search bar ── */
+        .gt-search-row { display: flex; gap: 10px; margin-bottom: 16px; }
+        .gt-search-input { flex: 1; padding: 9px 14px; background: #fff; border: 0.5px solid #d5e0dd; border-radius: 8px; font-size: 13px; color: #111827; outline: none; font-family: 'Inter', sans-serif; transition: border-color 0.15s; }
+        .gt-search-input:focus { border-color: #006A60; }
+        .gt-search-input::placeholder { color: #9ca3af; }
+
+        /* ── Table ── */
+        .gt-table-wrap { background: #fff; border: 0.5px solid #d5e0dd; border-radius: 12px; overflow: hidden; }
+        .gt-table { width: 100%; border-collapse: collapse; }
+        .gt-table thead { background: #f4f6f5; }
+        .gt-table th { padding: 11px 16px; text-align: left; font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 0.5px solid #d5e0dd; white-space: nowrap; }
+        .gt-table td { padding: 13px 16px; font-size: 13px; color: #374151; border-bottom: 0.5px solid #f0f4f3; vertical-align: middle; }
+        .gt-table tbody tr:last-child td { border-bottom: none; }
+        .gt-table tbody tr:hover { background: #fafcfb; }
+
+        /* ── Badges ── */
+        .gt-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+        .gt-badge.admin { background: #fef3c7; color: #92400e; }
+        .gt-badge.user { background: #e8f4f2; color: #006A60; }
+        .gt-badge.category { background: #ede9fe; color: #5b21b6; }
+
+        /* ── Truncate cell ── */
+        .gt-truncate { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* ── Delete button ── */
+        .gt-delete-btn { background: #fff0f0; border: 0.5px solid #fca5a5; color: #ef4444; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.15s; white-space: nowrap; font-family: 'Inter', sans-serif; }
+        .gt-delete-btn:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+        .gt-delete-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* ── Empty state ── */
+        .gt-empty { text-align: center; padding: 48px 20px; color: #9ca3af; font-size: 13px; }
+
+        /* ── Loading ── */
+        .gt-loading { text-align: center; padding: 40px; color: #9ca3af; font-size: 13px; }
+        .gt-spinner { width: 28px; height: 28px; border: 3px solid #e5e7eb; border-top-color: #006A60; border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 12px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Confirm overlay ── */
+        .gt-confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
+        .gt-confirm-box { background: #fff; border-radius: 14px; padding: 28px; max-width: 380px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+        .gt-confirm-title { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+        .gt-confirm-sub { font-size: 13px; color: #6b7280; line-height: 1.55; margin-bottom: 22px; }
+        .gt-confirm-actions { display: flex; gap: 10px; justify-content: flex-end; }
+        .gt-confirm-cancel { background: #f4f6f5; border: 0.5px solid #d5e0dd; color: #374151; font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; }
+        .gt-confirm-cancel:hover { background: #e5e7eb; }
+        .gt-confirm-delete { background: #ef4444; border: none; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; }
+        .gt-confirm-delete:hover { background: #dc2626; }
+
+        /* ── Toast ── */
+        .gt-toast { position: fixed; bottom: 24px; right: 24px; background: #111827; color: #fff; font-size: 13px; font-weight: 500; padding: 12px 18px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 200; opacity: 0; transform: translateY(8px); transition: all 0.25s; pointer-events: none; }
+        .gt-toast.show { opacity: 1; transform: translateY(0); }
+        .gt-toast.success { background: #006A60; }
+        .gt-toast.error { background: #ef4444; }
+
+        /* ── Access denied ── */
+        #access-denied { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; text-align: center; }
+        .gt-denied-icon { width: 64px; height: 64px; background: #fef2f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+    </style>
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header class="gt-header px-6 py-4 sticky top-0 z-50 shadow-md" style="height:auto;">
+        <nav class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/images/logo.svg" alt="Gitam" class="w-8 h-8 rounded-full object-cover" style="mix-blend-mode: lighten;">
+                <div class="w-px h-5 mx-0.5" style="background:rgba(255,255,255,0.3);"></div>
+                <a href="discover.html" class="text-xl font-bold text-white tracking-tight" style="text-decoration:none;">GitamTales</a>
+                <span class="gt-admin-badge">Admin</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex gap-6">
+                    <a href="discover.html" class="text-sm text-white/80 hover:text-white transition-colors" style="text-decoration:none;">Discover</a>
+                    <a href="dashboard.html" class="text-sm text-white/80 hover:text-white transition-colors" style="text-decoration:none;">My Journey</a>
+                </div>
+                <a href="notifications.html" class="relative flex items-center justify-center w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full transition-all" style="text-decoration:none;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </a>
+                <div class="relative">
+                    <button id="profile-menu-button" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 p-1 pr-3 rounded-full transition-all" style="border:none;cursor:pointer;">
+                        <img id="header-avatar" src="https://placehold.co/40x40/004d42/ffffff?text=A" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                        <span id="header-name" class="hidden sm:inline font-semibold text-white text-sm">Admin</span>
+                    </button>
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl py-2 z-20 border border-gray-100">
+                        <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#FAF9F6] transition-colors" style="text-decoration:none;">Settings</a>
+                        <a href="admin.html" class="block px-4 py-2 text-sm font-semibold hover:bg-[#f0faf8] transition-colors" style="color:#006A60;text-decoration:none;">⚙ Admin Panel</a>
+                        <hr class="my-1 border-gray-100">
+                        <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors" style="text-decoration:none;">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+            
+
+    <!-- ── MAIN ── -->
+    <main class="gt-main" id="admin-content" style="display:none;">
+
+        <div class="gt-page-title">Admin Panel</div>
+        <div class="gt-page-sub">Manage all users, tales, and comments across GitamTales.</div>
+
+        <!-- Stats -->
+        <div class="gt-stats">
+            <div class="gt-stat">
+                <div class="gt-stat-icon users">
+                    <svg width="20" height="20" fill="none" stroke="#006A60" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <div>
+                    <div class="gt-stat-num" id="stat-users">—</div>
+                    <div class="gt-stat-lbl">Total Users</div>
+                </div>
+            </div>
+            <div class="gt-stat">
+                <div class="gt-stat-icon tales">
+                    <svg width="20" height="20" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                </div>
+                <div>
+                    <div class="gt-stat-num" id="stat-tales">—</div>
+                    <div class="gt-stat-lbl">Total Tales</div>
+                </div>
+            </div>
+            <div class="gt-stat">
+                <div class="gt-stat-icon comments">
+                    <svg width="20" height="20" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                </div>
+                <div>
+                    <div class="gt-stat-num" id="stat-comments">—</div>
+                    <div class="gt-stat-lbl">Total Comments</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="gt-tabs">
+            <button class="gt-tab active" data-tab="users">Users</button>
+            <button class="gt-tab" data-tab="tales">Tales</button>
+            <button class="gt-tab" data-tab="comments">Comments</button>
+        </div>
+
+        <!-- ── USERS PANEL ── -->
+        <div class="gt-panel active" id="panel-users">
+            <div class="gt-search-row" style="flex-wrap:wrap;gap:10px;">
+                <input type="search" class="gt-search-input" id="user-search" placeholder="Search by name or email...">
+                <select class="gt-search-input" id="user-campus-filter" style="flex:0 0 160px;">
+                    <option value="">All Campuses</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Visakhapatnam">Visakhapatnam</option>
+                    <option value="Bangalore">Bangalore</option>
+                </select>
+                <input type="text" class="gt-search-input" id="user-branch-filter" placeholder="Branch (e.g. CSE)" style="flex:0 0 160px;">
+                <input type="text" class="gt-search-input" id="user-year-filter" placeholder="Grad year (e.g. 2026)" style="flex:0 0 170px;">
+            </div>
+            <div class="gt-table-wrap">
+                <div class="gt-loading" id="users-loading">
+                    <div class="gt-spinner"></div>Loading users...
+                </div>
+                <table class="gt-table" id="users-table" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Branch</th>
+                            <th>Campus</th>
+                            <th>Tales</th>
+                            <th>Comments</th>
+                            <th>Role</th>
+                            <th>Joined</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody"></tbody>
+                </table>
+                <div class="gt-empty" id="users-empty" style="display:none;">No users found.</div>
+            </div>
+        </div>
+
+        <!-- ── TALES PANEL ── -->
+        <div class="gt-panel" id="panel-tales">
+            <div class="gt-search-row" style="flex-wrap:wrap;gap:10px;">
+                <input type="search" class="gt-search-input" id="tale-search" placeholder="Search by title or author...">
+                <select class="gt-search-input" id="tale-category-filter" style="flex:0 0 180px;">
+                    <option value="">All Categories</option>
+                    <option value="Projects">Projects</option>
+                    <option value="Academics">Academics</option>
+                    <option value="Achievements">Achievements</option>
+                    <option value="Leadership & Events">Leadership & Events</option>
+                    <option value="Research & Papers">Research & Papers</option>
+                    <option value="Reflections">Reflections</option>
+                </select>
+                <input type="date" class="gt-search-input" id="tale-date-from" style="flex:0 0 160px;" title="From date">
+                <input type="date" class="gt-search-input" id="tale-date-to" style="flex:0 0 160px;" title="To date">
+            </div>
+            <div class="gt-table-wrap">
+                <div class="gt-loading" id="tales-loading">
+                    <div class="gt-spinner"></div>Loading tales...
+                </div>
+                <table class="gt-table" id="tales-table" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Author</th>
+                            <th>Likes</th>
+                            <th>Comments</th>
+                            <th>Posted</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tales-tbody"></tbody>
+                </table>
+                <div class="gt-empty" id="tales-empty" style="display:none;">No tales found.</div>
+            </div>
+        </div>
+
+        <!-- ── COMMENTS PANEL ── -->
+        <div class="gt-panel" id="panel-comments">
+            <div class="gt-search-row" style="flex-wrap:wrap;gap:10px;">
+                <input type="search" class="gt-search-input" id="comment-search" placeholder="Search by content or author...">
+                <input type="date" class="gt-search-input" id="comment-date-from" style="flex:0 0 160px;" title="From date">
+                <input type="date" class="gt-search-input" id="comment-date-to" style="flex:0 0 160px;" title="To date">
+            </div>
+            <div class="gt-table-wrap">
+                <div class="gt-loading" id="comments-loading">
+                    <div class="gt-spinner"></div>Loading comments...
+                </div>
+                <table class="gt-table" id="comments-table" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Comment</th>
+                            <th>Author</th>
+                            <th>On Tale</th>
+                            <th>Posted</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="comments-tbody"></tbody>
+                </table>
+                <div class="gt-empty" id="comments-empty" style="display:none;">No comments found.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ── ACCESS DENIED ── -->
+    <div id="access-denied">
+        <div class="gt-denied-icon">
+            <svg width="28" height="28" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+        </div>
+        <div style="font-size:18px;font-weight:700;color:#111827;margin-bottom:8px;">Access Denied</div>
+        <div style="font-size:13px;color:#9ca3af;margin-bottom:20px;">You don't have admin privileges to view this page.</div>
+        <a href="discover.html" style="background:#006A60;color:#fff;font-size:13px;font-weight:600;padding:9px 20px;border-radius:8px;text-decoration:none;">Go to Discover</a>
+    </div>
+
+    <!-- ── CONFIRM DIALOG (injected by JS) ── -->
+    <div id="confirm-overlay" class="gt-confirm-overlay" style="display:none;">
+        <div class="gt-confirm-box">
+            <div class="gt-confirm-title" id="confirm-title">Are you sure?</div>
+            <div class="gt-confirm-sub" id="confirm-sub">This action cannot be undone.</div>
+            <div class="gt-confirm-actions">
+                <button class="gt-confirm-cancel" id="confirm-cancel">Cancel</button>
+                <button class="gt-confirm-delete" id="confirm-ok">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── TOAST ── -->
+    <div class="gt-toast" id="toast"></div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+# Node.js and dependencies
+/node_modules
+
+# Tailwind CSS build files
+/css/style.css
+!/css/input.css # don't ignore the input file
+
+# VS Code files
+.vscode/
+
+# Ignore log files
+# Node.js and dependencies
+/node_modules
+
+# Tailwind CSS build files
+/css/style.css
+!/css/input.css # don't ignore the input file
+
+# VS Code files
+.vscode/
+
+# Ignore log files
+*.log
+npm-debug.log*
+
+# GitamTales specific files
+# The .sqlite files and .codeium should not be committed
+*.sqlite
+.codeium/
+.env
+backend/.env
+backend/node_modules/

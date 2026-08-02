@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Journey - GitamTales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+
+        .gt-header { background: #004b44; }
+
+        .gt-sidebar { background: #fff; border: 1px solid #d5e0dd; border-radius: 1rem; }
+
+        .gt-stat-badge { background: #f0faf8; border: 1px solid #c7e8e3; border-radius: 0.75rem; padding: 0.75rem 1rem; text-align: center; }
+
+        .gt-create-bar { background: #fff; border: 1px solid #d5e0dd; border-radius: 1rem; }
+
+        .gt-create-input { background: #f4f6f5; border: 1px solid #e5ebe9; border-radius: 9999px; color: #6b7280; font-size: 0.875rem; width: 100%; padding: 0.65rem 1.25rem; text-align: left; transition: background 0.15s; }
+        .gt-create-input:hover { background: #eaf0ee; }
+
+        .tale-card { background: #fff; border: 1px solid #d5e0dd; border-radius: 1rem; margin-bottom: 1.25rem; padding: 1.25rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: box-shadow 0.2s; }
+        .tale-card:hover { box-shadow: 0 4px 16px rgba(0,115,103,0.08); }
+
+        .gt-category-pill { background: #f0faf8; color: #006A60; border: 1px solid #c7e8e3; padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+
+        .gt-modal-inner { border-radius: 1.25rem; background: #fff; }
+        .gt-modal-header { border-bottom: 1px solid #e5ebe9; }
+        .gt-modal-footer { border-top: 1px solid #e5ebe9; background: #f4f6f5; border-radius: 0 0 1.25rem 1.25rem; }
+
+        .gt-input { background: #f4f6f5; border: 1px solid #e5ebe9; border-radius: 0.5rem; padding: 0.65rem 1rem; font-size: 0.875rem; width: 100%; outline: none; transition: border-color 0.15s; }
+        .gt-input:focus { border-color: #006A60; background: #fff; }
+        .gt-label { display: block; font-size: 0.8rem; font-weight: 600; color: #374151; margin-bottom: 0.35rem; }
+
+        .gt-btn-primary { background: #006A60; color: #fff; font-weight: 700; border-radius: 0.6rem; padding: 0.5rem 1.5rem; font-size: 0.875rem; transition: background 0.15s; }
+        .gt-btn-primary:hover { background: #004b44; }
+
+        /* Quill */
+        .ql-toolbar.ql-snow { border: 1px solid #e5ebe9 !important; border-radius: 0.5rem 0.5rem 0 0 !important; background: #f9fafb; }
+        .ql-container.ql-snow { border: 1px solid #e5ebe9 !important; border-top: 0 !important; border-radius: 0 0 0.5rem 0.5rem !important; min-height: 130px; font-family: 'Inter', sans-serif; font-size: 0.875rem; }
+        .ql-editor { min-height: 130px; }
+
+        /* Checkmark */
+        .checkmark-circle { width: 80px; height: 80px; position: relative; }
+        .checkmark { width: 80px; height: 80px; border-radius: 50%; display: block; stroke-width: 3; stroke: #006A60; stroke-miterlimit: 10; box-shadow: inset 0 0 0 #006A60; animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both; }
+        .checkmark-circle-path { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 3; stroke-miterlimit: 10; stroke: #006A60; fill: none; animation: stroke .6s cubic-bezier(.65,0,.45,1) forwards; }
+        .checkmark-check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; stroke: #fff; animation: stroke .3s cubic-bezier(.65,0,.45,1) .8s forwards; }
+        @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+        @keyframes scale { 0%,100% { transform: none; } 50% { transform: scale3d(1.1,1.1,1); } }
+        @keyframes fill { 100% { box-shadow: inset 0 0 0 30px #006A60; } }
+    </style>
+</head>
+<body class="bg-[#f4f6f5]">
+
+    <!-- Header -->
+    <header class="gt-header px-6 py-4 sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/images/logo.svg" alt="Gitam" class="w-8 h-8 rounded-full object-cover" style="mix-blend-mode: lighten;">
+                <div class="w-px h-5 bg-white/30 mx-0.5"></div>
+                <a href="discover.html" class="text-xl font-bold text-white tracking-tight">GitamTales</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex gap-6">
+                    <a href="discover.html" class="text-sm text-white/80 hover:text-white transition-colors">Discover</a>
+                    <a href="dashboard.html" class="text-sm text-white font-medium">My Journey</a>
+                </div>
+
+                <!-- Search (wired to dashboard.js via input[type=search] selector) -->
+                <div class="hidden md:flex items-center bg-white/10 hover:bg-white/15 border border-white/20 rounded-lg px-3 py-1.5 gap-2 transition-all">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="search" placeholder="Search your tales..." class="bg-transparent border-none outline-none text-sm text-white placeholder-white/50 w-32">
+                </div>
+<!-- Notifications -->
+                <a href="notifications.html" class="relative flex items-center justify-center w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full transition-all">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span id="notif-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-white text-[9px] font-bold flex items-center justify-center">0</span>
+                </a>
+                <!-- Profile -->
+                <div class="relative">
+                    <button id="profile-menu-button" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 p-1 pr-3 rounded-full transition-all">
+                        <div id="header-avatar-skeleton" class="w-8 h-8 rounded-full bg-white/30 animate-pulse"></div>
+                        <span id="header-name-skeleton" class="hidden sm:inline-block h-4 w-16 rounded bg-white/30 animate-pulse"></span>
+                    </button>
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl py-2 z-20 border border-gray-100">
+                        <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#FAF9F6]">Settings</a>
+                        <a href="admin.html" id="admin-nav-link" class="hidden px-4 py-2 text-sm text-[#006A60] font-semibold hover:bg-[#f0faf8] items-center gap-2">
+                            <svg class="w-3.5 h-3.5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            Admin Panel
+                        </a>
+                        <hr class="my-2 border-gray-100">
+                        <a href="#" id="logout-button" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-medium">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-1">
+                <div class="gt-sidebar p-6 sticky top-24">
+
+                    <div id="sidebar-profile-content" class="text-center">
+                        <div id="sidebar-avatar-skeleton" class="w-24 h-24 rounded-full mx-auto mb-4 bg-gray-200 animate-pulse"></div>
+                        <div id="sidebar-name-skeleton" class="h-6 w-36 mx-auto rounded bg-gray-200 animate-pulse mb-2"></div>
+                        <div id="sidebar-branch-skeleton" class="h-4 w-24 mx-auto rounded bg-gray-200 animate-pulse"></div>
+                        <div id="sidebar-bio-skeleton" class="space-y-2 mt-4">
+                            <div class="h-3 w-full rounded bg-gray-200 animate-pulse"></div>
+                            <div class="h-3 w-5/6 mx-auto rounded bg-gray-200 animate-pulse"></div>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="flex justify-around gap-3 my-5">
+                        <div class="gt-stat-badge flex-1">
+                            <p id="tales-count" class="font-bold text-xl text-[#006A60]">--</p>
+                            <p class="text-xs text-gray-500 mt-0.5">Tales</p>
+                        </div>
+                        <div class="gt-stat-badge flex-1">
+                            <p id="likes-count" class="font-bold text-xl text-[#006A60]">--</p>
+                            <p class="text-xs text-gray-500 mt-0.5">Likes</p>
+                        </div>
+                    </div>
+
+                    <hr class="border-[#e5ebe9] my-4">
+
+                    <a href="settings.html" class="flex items-center justify-center gap-2 w-full text-sm text-[#006A60] font-semibold hover:bg-[#f0faf8] py-2 rounded-lg transition-colors">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        Edit Profile
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Timeline -->
+            <div id="timeline-feed" class="lg:col-span-3">
+                <div class="gt-create-bar p-4 mb-5 flex items-center gap-3">
+                    <div id="create-bar-avatar-skeleton" class="w-10 h-10 rounded-full bg-gray-200 animate-pulse flex-shrink-0"></div>
+                    <button id="add-tale-button" class="gt-create-input">What's new on your journey?</button>
+                    <button onclick="document.getElementById('add-tale-button').click()"
+                        class="flex-shrink-0 w-9 h-9 rounded-full bg-[#006A60] hover:bg-[#004b44] text-white flex items-center justify-center transition-colors shadow-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
+                <!-- Tales injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Tale Modal -->
+    <div id="add-tale-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="gt-modal-inner w-full max-w-2xl flex flex-col shadow-2xl" style="max-height: 90vh;">
+
+            <div class="gt-modal-header flex justify-between items-center px-6 py-4 flex-shrink-0">
+                <h3 class="text-lg font-bold text-gray-900">Create a New Tale</h3>
+                <button id="close-modal-button" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-100 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <form id="tale-form" class="px-6 py-5 space-y-5 overflow-y-auto flex-1">
+                <input type="hidden" id="edit-tale-id" name="edit_tale_id">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="tale-category" class="gt-label">Category</label>
+                        <select id="tale-category" name="category" class="gt-input cursor-pointer">
+                            <option>Projects</option>
+                            <option>Academics</option>
+                            <option>Achievements</option>
+                            <option>Leadership & Events</option>
+                            <option>Research & Papers</option>
+                            <option>Reflections</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="tale-title" class="gt-label">Title</label>
+                        <input type="text" id="tale-title" name="title" required class="gt-input" placeholder="e.g., Won First Place at SIH">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="event-date" class="gt-label">Date of Event <span class="text-gray-400 font-normal">(optional)</span></label>
+                    <input type="date" id="event-date" name="event_date" class="gt-input">
+                </div>
+
+                <div>
+                    <label for="cover-image" class="gt-label">Cover Image</label>
+                    <input type="file" id="cover-image" name="cover_image"
+                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#f0faf8] file:text-[#006A60] hover:file:bg-[#e0f5f1] cursor-pointer"
+                        accept="image/png, image/jpeg, image/gif">
+                </div>
+
+                <div>
+                    <label class="gt-label">Description</label>
+                    <div id="description-editor" class="mt-1 bg-white"></div>
+                </div>
+
+                <div>
+                    <label for="tale-tags" class="gt-label">Tags <span class="text-gray-400 font-normal">(comma-separated)</span></label>
+                    <input type="text" id="tale-tags" name="tags" class="gt-input" placeholder="e.g., React, Node.js, Leadership">
+                </div>
+            </form>
+
+            <div class="gt-modal-footer flex justify-end items-center px-6 py-4 flex-shrink-0">
+                <button id="submit-tale-button" type="submit" form="tale-form" class="gt-btn-primary">Post Tale</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center">
+            <div class="gt-checkmark-wrap mx-auto mb-4">
+                <svg viewBox="0 0 52 52" class="gt-checkmark-svg">
+                    <circle class="gt-checkmark-circle" cx="26" cy="26" r="23" fill="none"/>
+                    <path class="gt-checkmark-check" fill="none" d="M14 27l8 8 16-16"/>
+                </svg>
+            </div>
+            <h2 id="success-modal-title" class="text-2xl font-bold text-gray-900 mb-1">Success!</h2>
+            <p id="success-modal-message" class="text-gray-500 text-sm">Tale posted successfully</p>
+        </div>
+    </div>
+
+    <style>
+    .gt-checkmark-wrap {
+        width: 72px;
+        height: 72px;
+    }
+    .gt-checkmark-svg {
+        width: 72px;
+        height: 72px;
+    }
+    .gt-checkmark-circle {
+        stroke: #006A60;
+        stroke-width: 3;
+        stroke-dasharray: 150;
+        stroke-dashoffset: 150;
+        animation: gt-circle-draw 0.5s ease forwards;
+    }
+    .gt-checkmark-check {
+        stroke: #006A60;
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 40;
+        stroke-dashoffset: 40;
+        animation: gt-check-draw 0.35s ease forwards 0.5s;
+    }
+    @keyframes gt-circle-draw {
+        to { stroke-dashoffset: 0; }
+    }
+    @keyframes gt-check-draw {
+        to { stroke-dashoffset: 0; }
+    }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+
+</html>
+

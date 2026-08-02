@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitamTales - Your College Journey, Reimagined</title>
+    <link rel="icon" href="assets/images/logo.svg" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
+
+    <style>
+        .initially-hidden { opacity: 0; transition: opacity 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#FAF9F6] text-[#292524] initially-hidden">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="discover.html" class="flex items-center space-x-3">
+                <img src="assets/images/logo.svg" alt="GitamTales Logo" class="h-8 w-auto">
+                <span class="text-2xl font-bold text-gray-900">GitamTales</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#features" class="text-gray-600 hover:text-[#006A60] transition-colors">How It Works</a>
+                <a href="#discover" class="text-gray-600 hover:text-[#006A60] transition-colors">Discover</a>
+                <a href="login.html" class="text-gray-600 hover:text-[#006A60] transition-colors">Log In</a>
+                <a href="signup.html" class="bg-[#006A60] hover:bg-[#004b44] text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all transform hover:scale-105">Sign Up</a>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200">
+            <a href="#features" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">How It Works</a>
+            <a href="#discover" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Discover</a>
+            <a href="login.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Log In</a>
+            <a href="signup.html" class="block py-2 px-4 text-sm text-white bg-[#006A60] hover:bg-[#004b44]">Sign Up</a>
+        </div>
+    </header>
+
+    <main>
+        
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 md:mb-10 leading-tight">Your College Journey, <span class="text-[#006A60] typing-text">Reimagined.</span></h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">Transform your Gitam experience into a living, interactive story that inspires peers and engages recruiters. Go beyond the resume.</p>
+                <a href="signup.html" class="bg-[#006A60] hover:bg-[#004b44] text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 inline-block">Start Your Journey</a>
+                
+
+
+    <div class="grid grid-cols-2 gap-6 max-w-xl mx-auto mt-16">
+        <div class="bg-[#FAF9F6] rounded-lg p-6 shadow-md border border-gray-100">
+       
+        <div id="total-tales-counter" class="text-4xl font-bold text-[#006A60] counter-number" data-target="0" aria-live="polite">0</div>
+        <div class="text-sm text-gray-600 mt-2">Total Tales</div>
+    </div>
+    <div class="bg-[#FAF9F6] rounded-lg p-6 shadow-md border border-gray-100">
+       
+        <div id="active-users-counter" class="text-4xl font-bold text-[#006A60] counter-number" data-target="0" aria-live="polite">0</div>
+        <div class="text-sm text-gray-600 mt-2">Active Users</div>
+    </div>
+</div>
+            </div>
+        </section>
+
+        
+        <section id="features" class="py-16 md:py-20 bg-[#FAF9F6] scroll-target">
+             <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">How It Works</h2>
+                      <p class="text-gray-600 mt-2">A simple, powerful way to showcase your growth.</p>
+                 </div>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 text-center">
+                      <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 transform transition hover:scale-105">
+                           <div class="bg-green-100 text-[#006A60] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+                           <h3 class="text-xl font-semibold text-gray-900 mb-2">Document</h3>
+                           <p class="text-gray-600 text-sm">Build your interactive portfolio step-by-step.</p>
+                      </div>
+                      <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 transform transition hover:scale-105">
+                           <div class="bg-green-100 text-[#006A60] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></div>
+                           <h3 class="text-xl font-semibold text-gray-900 mb-2">Showcase</h3>
+                           <p class="text-gray-600 text-sm">Impress peers and recruiters with a verified, dynamic profile.</p>
+                      </div>
+                      <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 transform transition hover:scale-105">
+                           <div class="bg-green-100 text-[#006A60] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
+                           <h3 class="text-xl font-semibold text-gray-900 mb-2">Discover</h3>
+                           <p class="text-gray-600 text-sm">Learn from others' paths and connect with the community.</p>
+                      </div>
+                 </div>
+            </div>
+        </section>
+
+        
+        <section id="discover" class="py-16 md:py-20 bg-white border-t border-gray-200 scroll-target">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Discover Journeys</h2>
+                    <p class="text-gray-600 mt-2">Explore the latest projects, achievements, and stories.</p>
+                </div>
+
+               
+                <div class="relative">
+                    
+                    <div id="discover-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                       
+                        <div class="bg-white rounded-lg overflow-hidden border border-gray-200 animate-pulse"> <div class="w-full h-48 bg-gray-300"></div> <div class="p-6"> <div class="h-4 w-1/4 rounded-md bg-gray-300 mb-2"></div> <div class="h-6 w-3/4 rounded-md bg-gray-300 mb-4"></div> <div class="flex items-center"> <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div> <div> <div class="h-4 w-24 rounded-md bg-gray-300"></div> <div class="h-3 w-16 rounded-md bg-gray-300 mt-1"></div> </div> </div> </div> </div>
+                        <div class="bg-white rounded-lg overflow-hidden border border-gray-200 animate-pulse hidden md:block"> <div class="w-full h-48 bg-gray-300"></div> <div class="p-6"> <div class="h-4 w-1/4 rounded-md bg-gray-300 mb-2"></div> <div class="h-6 w-3/4 rounded-md bg-gray-300 mb-4"></div> <div class="flex items-center"> <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div> <div> <div class="h-4 w-24 rounded-md bg-gray-300"></div> <div class="h-3 w-16 rounded-md bg-gray-300 mt-1"></div> </div> </div> </div> </div>
+                        <div class="bg-white rounded-lg overflow-hidden border border-gray-200 animate-pulse hidden lg:block"> <div class="w-full h-48 bg-gray-300"></div> <div class="p-6"> <div class="h-4 w-1/4 rounded-md bg-gray-300 mb-2"></div> <div class="h-6 w-3/4 rounded-md bg-gray-300 mb-4"></div> <div class="flex items-center"> <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div> <div> <div class="h-4 w-24 rounded-md bg-gray-300"></div> <div class="h-3 w-16 rounded-md bg-gray-300 mt-1"></div> </div> </div> </div> </div>
+                        <div class="bg-white rounded-lg overflow-hidden border border-gray-200 animate-pulse hidden lg:block"> <div class="w-full h-48 bg-gray-300"></div> <div class="p-6"> <div class="h-4 w-1/4 rounded-md bg-gray-300 mb-2"></div> <div class="h-6 w-3/4 rounded-md bg-gray-300 mb-4"></div> <div class="flex items-center"> <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div> <div> <div class="h-4 w-24 rounded-md bg-gray-300"></div> <div class="h-3 w-16 rounded-md bg-gray-300 mt-1"></div> </div> </div> </div> </div>
+                    </div>
+
+                   
+                    <button id="prev-tale" class="absolute top-1/2 left-0 transform -translate-y-1/2 -ml-3 md:-ml-4 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-gray-100 hidden disabled:opacity-50 disabled:cursor-not-allowed z-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#006A60]">
+                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                         <span class="sr-only">Previous Tales</span>
+                    </button>
+                    <button id="next-tale" class="absolute top-1/2 right-0 transform -translate-y-1/2 -mr-3 md:-mr-4 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-gray-100 hidden disabled:opacity-50 disabled:cursor-not-allowed z-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#006A60]">
+                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                         <span class="sr-only">Next Tales</span>
+                    </button>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <a href="discover.html" class="bg-[#006A60] hover:bg-[#004b44] text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 inline-block">
+                        Explore All Journeys
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-950 text-gray-300 mt-10">
+        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-center md:justify-between">
+            <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                <a href="discover.html" class="flex items-center space-x-3">
+                    <img src="assets/images/logo.svg" alt="GitamTales Logo" class="h-8 w-auto">
+                    <span class="text-xl font-bold text-white">GitamTales</span>
+                </a>
+                <p class="text-sm text-gray-500 ml-4">&copy; <span id="year">2025</span> GitamTales. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-4">
+                 
+            </div>
+        </div>
+    </footer>
+
+    
+    <div id="tale-detail-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 overflow-y-auto">
+        <div id="modal-content" class="bg-white rounded-xl shadow-2xl w-full max-w-2xl transform transition-all relative max-h-[90vh] flex flex-col">
+            <div class="flex-shrink-0 p-4 border-b border-gray-200 flex justify-between items-center">
+                 <h2 id="modal-title" class="text-xl font-bold text-[#292524]">Tale Details</h2>
+                 <button id="close-tale-modal" class="text-gray-400 hover:text-gray-600 p-2 rounded-full">
+                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                 </button>
+            </div>
+            <div id="modal-body-content" class="p-6 md:p-8 overflow-y-auto">
+                
+                 <div class="animate-pulse space-y-4">
+                    <div class="h-4 w-1/4 bg-gray-300 rounded"></div>
+                    <div class="h-8 w-3/4 bg-gray-300 rounded"></div>
+                    <div class="flex items-center space-x-3"><div class="w-10 h-10 rounded-full bg-gray-300"></div><div class="space-y-1"><div class="h-4 w-24 bg-gray-300 rounded"></div><div class="h-3 w-32 bg-gray-300 rounded"></div></div></div>
+                    <div class="w-full h-48 bg-gray-300 rounded-lg"></div>
+                    <div class="space-y-2"><div class="h-4 bg-gray-300 rounded"></div><div class="h-4 w-5/6 bg-gray-300 rounded"></div></div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <script>
+        if (localStorage.getItem('token')) {
+            window.location.href = 'discover.html';
+        }
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
+

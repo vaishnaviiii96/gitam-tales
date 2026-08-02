@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - GitamTales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#f4f6f5] font-['Inter']">
+
+    <!-- Header -->
+    <header class="gt-header px-6 py-4 sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/images/logo.svg" alt="Gitam" class="w-8 h-8 rounded-full object-cover" style="mix-blend-mode: lighten;">
+                <div class="w-px h-5 bg-white/30 mx-0.5"></div>
+                <a href="discover.html" class="text-xl font-bold text-white tracking-tight">GitamTales</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex gap-6">
+                    <a href="discover.html" class="text-sm text-white/80 hover:text-white transition-colors">Discover</a>
+                    <a href="dashboard.html" class="text-sm text-white/80 hover:text-white transition-colors">My Journey</a>
+                </div>
+                <a href="notifications.html" class="relative flex items-center justify-center w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full transition-all">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span id="notif-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-white text-[9px] font-bold flex items-center justify-center">0</span>
+                </a>
+                <div class="relative">
+                    <button id="profile-menu-button" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 p-1 pr-3 rounded-full transition-all">
+                        <img id="header-avatar" src="https://placehold.co/40x40/e0e7ff/3730a3?text=A" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                        <span id="header-name" class="hidden sm:inline font-semibold text-white text-sm">Loading...</span>
+                    </button>
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl py-2 z-20 border border-gray-100">
+                        <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#FAF9F6] transition-colors">Settings</a>
+                        <a href="admin.html" id="admin-nav-link" class="hidden px-4 py-2 text-sm text-[#006A60] font-semibold hover:bg-[#f0faf8] items-center gap-2 transition-colors">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="inline mr-1"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            Admin Panel
+                        </a>
+                        <hr class="my-1 border-gray-100">
+                        <a href="#" id="logout-button" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-medium transition-colors">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-10 max-w-3xl">
+
+        <!-- Page Title -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">Settings</h1>
+            <p class="text-sm text-gray-500 mt-1" id="settings-subtitle">Loading...</p>
+        </div>
+
+        <!-- ── ADMIN SETTINGS FORM ── -->
+        <form id="admin-settings-form" class="space-y-6 hidden">
+
+            <!-- Admin Profile Picture -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <h2 class="text-sm font-bold text-[#6b7280] uppercase tracking-widest mb-5">Profile Picture</h2>
+                <div class="flex items-center gap-6">
+                    <img id="admin-avatar-preview" src="https://placehold.co/100x100/e0e7ff/3730a3?text=A" alt="Avatar"
+                        class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md flex-shrink-0">
+                    <div>
+                        <button id="admin-change-picture-btn" type="button"
+                            class="bg-[#006A60] hover:bg-[#004b44] text-white font-semibold py-2 px-5 rounded-lg text-sm transition-colors">
+                            Change Picture
+                        </button>
+                        <input type="file" id="admin-avatar-input" class="hidden" accept="image/png, image/jpeg, image/gif">
+                        <p class="text-xs text-gray-400 mt-2">PNG, JPG, or GIF · Max 5MB</p>
+                    </div>
+                </div>
+            </div>
+
+           <!-- Admin Info -->
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+    <h2 class="text-sm font-bold text-[#6b7280] uppercase tracking-widest mb-5">Admin Info</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+            <label for="admin-name" class="block text-sm font-medium text-gray-700 mb-1">Display Name <span class="text-red-400">*</span></label>
+            <input type="text" id="admin-name" required
+                class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition"
+                placeholder="Admin display name">
+        </div>
+        <div>
+            <label for="admin-campus" class="block text-sm font-medium text-gray-700 mb-1">Campus</label>
+            <select id="admin-campus"
+                class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition">
+                <option value="">Select Campus</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Visakhapatnam">Visakhapatnam</option>
+                <option value="Bangalore">Bangalore</option>
+            </select>
+        </div>
+        <div class="md:col-span-2">
+            <label for="admin-bio" class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+            <textarea id="admin-bio" rows="3"
+                class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition resize-none"
+                placeholder="A short description..."></textarea>
+        </div>
+    </div>
+</div>
+            <!-- Admin Save -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p id="admin-form-message" class="text-sm"></p>
+                <div class="flex items-center gap-3 ml-auto">
+                    <a href="admin.html" class="text-sm font-semibold text-gray-500 hover:text-[#292524] transition">Cancel</a>
+                    <button type="submit"
+                        class="bg-[#006A60] hover:bg-[#004b44] text-white font-bold py-2.5 px-7 rounded-xl transition-all shadow-sm text-sm">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- ── USER SETTINGS FORM ── -->
+        <form id="settings-form" class="space-y-6 hidden">
+
+            <!-- Avatar Section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <h2 class="text-sm font-bold text-[#6b7280] uppercase tracking-widest mb-5">Profile Picture</h2>
+                <div class="flex items-center gap-6">
+                    <img id="avatar-preview" src="https://placehold.co/100x100/e0e7ff/3730a3?text=A" alt="Avatar"
+                        class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md flex-shrink-0">
+                    <div>
+                        <button id="change-picture-button" type="button"
+                            class="bg-[#006A60] hover:bg-[#004b44] text-white font-semibold py-2 px-5 rounded-lg text-sm transition-colors">
+                            Change Picture
+                        </button>
+                        <input type="file" id="avatar-upload-input" class="hidden" accept="image/png, image/jpeg, image/gif">
+                        <p class="text-xs text-gray-400 mt-2">PNG, JPG, or GIF · Max 5MB</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basic Info -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <h2 class="text-sm font-bold text-[#6b7280] uppercase tracking-widest mb-5">Basic Info</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name <span class="text-red-400">*</span></label>
+                        <input type="text" id="full-name" name="full_name" required
+                            class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition"
+                            placeholder="Your full name">
+                    </div>
+                    <div>
+                        <label for="branch" class="block text-sm font-medium text-gray-700 mb-1">Branch</label>
+                        <input type="text" id="branch" name="branch"
+                            class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition"
+                            placeholder="e.g., CSE, ECE, MBA...">
+                    </div>
+                    <div>
+                        <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Graduation Year</label>
+                        <input type="text" id="year" name="year"
+                            class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition"
+                            placeholder="e.g., 2026">
+                    </div>
+                    <div>
+                        <label for="campus" class="block text-sm font-medium text-gray-700 mb-1">Campus</label>
+                        <select id="campus" name="campus"
+                            class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition">
+                            <option value="">Select Campus</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Visakhapatnam">Visakhapatnam</option>
+                            <option value="Bangalore">Bangalore</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="bio" class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                        <textarea id="bio" name="bio" rows="3"
+                            class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition resize-none"
+                            placeholder="Tell everyone a little about yourself..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <h2 class="text-sm font-bold text-[#6b7280] uppercase tracking-widest mb-5">Social Links</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="linkedin-url" class="block text-sm font-medium text-gray-700 mb-1">
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                LinkedIn
+                            </span>
+                        </label>
+                        <input type="url" id="linkedin-url" name="linkedin_url"
+                            class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition"
+                            placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+                    <div>
+                        <label for="github-url" class="block text-sm font-medium text-gray-700 mb-1">
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </span>
+                        </label>
+                        <input type="url" id="github-url" name="github_url"
+                            class="block w-full px-4 py-2.5 bg-[#FAF9F6] border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#006A60] focus:border-transparent outline-none transition"
+                            placeholder="https://github.com/yourusername">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <h2 class="text-sm font-bold text-[#6b7280] uppercase tracking-widest mb-1">Skills</h2>
+                <p class="text-xs text-gray-400 mb-4">Press <kbd class="bg-gray-100 border border-gray-200 rounded px-1">Enter</kbd> or <kbd class="bg-gray-100 border border-gray-200 rounded px-1">,</kbd> to add a skill.</p>
+                <div id="skills-container"
+                    class="flex flex-wrap gap-2 p-3 bg-[#FAF9F6] border border-gray-200 rounded-xl min-h-[52px] cursor-text focus-within:ring-2 focus-within:ring-[#006A60] focus-within:border-transparent transition">
+                    <input type="text" id="skills-input" placeholder="e.g. React, Python..."
+                        class="bg-transparent outline-none text-sm flex-1 min-w-[150px] py-1 text-gray-700 placeholder-gray-400"/>
+                </div>
+                <input type="hidden" id="skills-hidden" name="skills"/>
+            </div>
+
+            <!-- User Save -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p id="form-message" class="text-sm"></p>
+                <div class="flex items-center gap-3 ml-auto">
+                    <a href="dashboard.html" class="text-sm font-semibold text-gray-500 hover:text-[#292524] transition">Cancel</a>
+                    <button type="submit"
+                        class="bg-[#006A60] hover:bg-[#004b44] text-white font-bold py-2.5 px-7 rounded-xl transition-all shadow-sm text-sm">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </main>
+
+    <script src="js/settings.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+</html>
+

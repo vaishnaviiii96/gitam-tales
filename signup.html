@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - GitamTales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+</head>
+<body class="bg-[#FAF9F6] font-sans">
+
+    <div class="flex flex-col items-center justify-center min-h-screen px-4 py-8">
+        <a href="discover.html" class="text-3xl font-bold text-gray-900 mb-8">GitamTales</a>
+        <div class="w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+            <h2 class="text-2xl font-bold text-center text-[#292524] mb-2">Create Your Account</h2>
+            <p class="text-center text-gray-500 mb-6">Join the exclusive Gitam community.</p>
+
+            <button id="google-signup-btn" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-all transform hover:scale-105">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google icon">
+                Continue with Google
+            </button>
+
+            <div class="flex items-center my-6">
+                <hr class="flex-grow border-t border-gray-300">
+                <span class="px-3 text-sm font-medium text-gray-500">OR</span>
+                <hr class="flex-grow border-t border-gray-300">
+            </div>
+
+            <form id="signup-form" class="space-y-5">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Gitam Email</label>
+                    <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-[#006A60] focus:border-[#006A60] transition" placeholder="yourname@Gitam.in">
+                </div>
+
+                <div>
+                    <label for="branch" class="block text-sm font-medium text-gray-700">Branch <span class="text-red-500">*</span></label>
+                    <input type="text" id="branch" name="branch" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-[#006A60] focus:border-[#006A60] transition" placeholder="e.g. CSE, ECE, MBA">
+                </div>
+
+                <div>
+                    <label for="year" class="block text-sm font-medium text-gray-700">Graduation Year <span class="text-red-500">*</span></label>
+                    <select id="year" name="year" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-[#006A60] focus:border-[#006A60] transition">
+                        <option value="">Select year</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="campus" class="block text-sm font-medium text-gray-700">Campus <span class="text-red-500">*</span></label>
+                    <select id="campus" name="campus" required class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-[#006A60] focus:border-[#006A60] transition">
+                        <option value="">Select campus</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Visakhapatnam">Visakhapatnam</option>
+                        <option value="Bangalore">Bangalore</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="relative mt-1">
+                        <input type="password" id="password" name="password" required minlength="8" class="block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-[#006A60] focus:border-[#006A60] transition pr-10" placeholder="8+ characters">
+                        <button type="button" data-toggle-password="password" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.432 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <div class="relative mt-1">
+                        <input type="password" id="confirm-password" name="confirm-password" required class="block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-[#006A60] focus:border-[#006A60] transition pr-10" placeholder="Re-enter your password">
+                        <button type="button" data-toggle-password="confirm-password" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.432 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <p id="form-message" class="text-center text-sm"></p>
+
+                <div>
+                    <button type="submit" class="w-full bg-[#006A60] hover:bg-[#004b44] text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#006A60] transition-all transform hover:scale-105">Create Account</button>
+                </div>
+            </form>
+
+            <p class="text-center text-sm text-gray-600 mt-8">
+                Already have an account?
+                <a href="login.html" class="font-medium text-[#006A60] hover:underline">Log In</a>
+            </p>
+        </div>
+        <p class="text-center text-xs text-gray-500 mt-6">&copy; 2025 GitamTales. All rights reserved.</p>
+    </div>
+
+    <script src="js/signup.js"></script>
+</body>
+</html>
+
+
