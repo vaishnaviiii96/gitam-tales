@@ -1,0 +1,150 @@
+/* Set Inter as the default font for the entire site */
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden; /* Prevents horizontal scrollbar from animation */
+}
+.initially-hidden {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+/* Simple animation for hero section fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* In your css/style.css file */
+
+.scroll-target {
+  scroll-margin-top: 5rem; /* Adjust this value if needed to match your header's height */
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Animation for new posts appearing on the timeline */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.5s ease-out forwards;
+}
+
+/* Add top margin for scroll-to-anchor links to avoid overlapping the sticky header */
+section[id] {
+  scroll-margin-top: 100px; /* Increased value to better clear the header */
+}
+
+/* BIG ANIMATION: Animated Gradient Background */
+@keyframes AnimateBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    
+    /* Base styles for the animated gradient */
+    background: linear-gradient(270deg, #006A60, #004b44, #F59E0B, #292524);
+    background-size: 400% 400%;
+    animation: AnimateBG 20s ease infinite;
+}
+
+/* Dark mode specific gradient styles */
+.dark .animated-gradient {
+    background: linear-gradient(270deg, #F59E0B, #D97706, #292524, #000000);
+}
+
+/* The content on top of the animation */
+.animated-gradient .content {
+    position: relative;
+    z-index: 20;
+    isolation: isolate;
+}
+
+/* ============================================
+   HOMEPAGE HERO ANIMATIONS
+   ============================================ */
+
+/* Typing text animation */
+/* ============================================
+   HOMEPAGE HERO ANIMATIONS
+   ============================================ */
+
+/* ============================================
+   HOMEPAGE HERO ANIMATIONS
+   ============================================ */
+.typing-text {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 3px solid #006A60;
+    white-space: nowrap;
+    vertical-align: bottom;
+    animation: typing 3s steps(20) forwards, blink-caret 0.75s step-end infinite;
+    animation-delay: 0.5s, 3.5s; /* Cursor blinks after typing completes */
+}
+
+.typing-text::before {
+    content: '';
+    display: inline-block;
+}
+
+@keyframes typing {
+    from { 
+        max-width: 0;
+    }
+    to { 
+        max-width: 13ch; /* 13 characters for "Reimagined." plus cursor */
+    }
+}
+
+@keyframes blink-caret {
+    from, to { 
+        border-color: #006A60; 
+    }
+    50% { 
+        border-color: transparent; 
+    }
+
+}
+/* Add this to your css/style.css */
+:root {
+    --gt-primary: #004b44;
+    --gt-secondary: #006A60;
+}
+
+.gt-header { background: var(--gt-primary); }
+.gt-btn-solid { background: #fff; color: var(--gt-primary); }
+.gt-btn-outline { border: 1px solid rgba(255,255,255,0.4); color: #fff; }
+
+.gt-tab { 
+    font-size: 13px; padding: 6px 16px; border-radius: 8px; 
+    cursor: pointer; border: 1px solid #d5e0dd; 
+    background: #fff; color: #6b7280; transition: all 0.2s;
+}
+.gt-tab.active { background: var(--gt-secondary); color: #fff; border-color: var(--gt-secondary); }
+
+/* Custom search bar styling */
+.gt-search-container {
+    background: #fff; border: 1px solid #d1d9d7;
+    border-radius: 12px; padding: 8px;
+    display: flex; align-items: center; gap: 10px;
+}
+#discover-feed > * {
+    break-inside: avoid;
+    margin-bottom: 24px;
+    display: inline-block;
+    width: 100%;
+}
