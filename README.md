@@ -1,7 +1,5 @@
 # GitamTales
 
-> **Note:** This repository contains a standalone clone/replica of the platform developed during my internship. To comply with institutional privacy policies, the original name, theme, and branding have been modified, and sensitive production data has been omitted.
-
 A full-stack student story platform where users share and discover university experiences. Built with a vanilla JS frontend and a Node.js/Express backend, with AI-powered content moderation on every submission.
 
 ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat&logo=node.js&logoColor=white)
