@@ -25,7 +25,7 @@ flowchart TD
     subgraph Docker ["Docker Compose"]
         Frontend["Frontend<br/>nginx:alpine, port 8000"]
         
-        subgraph Backend ["Backend<br/>Express 5, port 5000"]
+        subgraph Backend ["Backend (Express 5, port 5000)"]
             direction TB
             Auth["Auth routes<br/>No JWT check"]
             Tales["Tales / user / notifications<br/>Per-route JWT check"]
