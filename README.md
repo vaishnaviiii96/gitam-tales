@@ -55,6 +55,7 @@ flowchart TD
 - Sign up/login with JWT-based authentication
 - Post, edit and delete personal stories ("tales")
 - Browse and discover stories shared by other students
+- Receive real-time notifications for likes, comments, and admin announcements
 - Password reset link via Resend, token expires in 1 hour
 
 **Content Moderation**
