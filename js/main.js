@@ -4,6 +4,10 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
 
 document.addEventListener('DOMContentLoaded', async () => {
 
+    // --- Show page (was hidden to prevent flash) ---
+    // We do this BEFORE the fetch so if Render is sleeping/deploying, the user doesn't stare at a blank screen
+    document.body.style.opacity = 1;
+
     // --- SESSION CHECK & REDIRECT ---
     const token = localStorage.getItem('token');
     if (token) {
@@ -16,17 +20,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 window.location.href = 'dashboard.html';
                 return;
             } else {
-                // Token invalid, clear it
                 localStorage.clear();
             }
         } catch (e) {
-            // Server unreachable, still show homepage
             localStorage.clear();
         }
     }
-
-    // --- Show page (was hidden to prevent flash) ---
-    document.body.style.opacity = 1;
 
     // --- Setup ---
     setupHomepage();
