@@ -4,7 +4,7 @@ const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
 
-console.log('GROQ KEY LOADED:', process.env.GROQ_API_KEY ? 'YES - starts with ' + process.env.GROQ_API_KEY.substring(0, 6) : 'NO - MISSING');
+
 
 async function moderate(text, context = 'comment') {
      console.log('MODERATE CALLED - context:', context, 'text:', text?.substring(0, 50));
