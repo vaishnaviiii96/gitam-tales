@@ -1,6 +1,6 @@
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000'
-    : 'https://YOUR_RENDER_URL.onrender.com'; // TODO: Update this to your deployed Render URL
+    : 'https://gitam-tales.onrender.com'; // TODO: Update this to your deployed Render URL
 
 const token = localStorage.getItem('token');
 
@@ -482,4 +482,5 @@ function deleteComment(id, authorName) {
         }
     );
 }
+
 
