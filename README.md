@@ -40,7 +40,7 @@ flowchart TD
     
     Postgres[("Postgres<br/>Neon")]
     Groq["Groq API<br/>Called from tales/user"]
-    Resend["Resend<br/>Called from auth.js"]
+    Resend["Resend<br/>Reset link, not OTP"]
     Uploads["/uploads<br/>Docker volume"]
     
     Backend --> Postgres
@@ -57,7 +57,7 @@ flowchart TD
 - Sign up/login with JWT-based authentication
 - Post, edit and delete personal stories ("tales")
 - Browse and discover stories shared by other students
-- Password reset via OTP email flow
+- Password reset link via Resend, token expires in 1 hour
 
 **Content Moderation**
 - Every submitted story is passed through the Groq SDK before it's written to the database
@@ -69,7 +69,8 @@ flowchart TD
 
 **Security**
 - JWT auth, bcrypt password hashing
-- OTP password reset via Resend, time-limited codes
+- Password reset link via Resend, time-limited cryptographic tokens
+- Anti-enumeration on forgot password to prevent email scanning
 - Parameterised SQL to prevent injection
 - Role-based route protection (user vs. admin)
 
@@ -81,7 +82,7 @@ flowchart TD
 | Backend | Node.js, Express 5 |
 | DB | PostgreSQL |
 | Auth | JWT, bcrypt |
-| Email | Resend (OTP / password reset) |
+| Email | Resend (Reset link) |
 | Moderation | Groq SDK |
 | Containerization | Docker Compose |
 | CI/CD | GitHub Actions |
