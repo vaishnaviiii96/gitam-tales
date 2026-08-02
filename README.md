@@ -10,11 +10,11 @@ A full-stack student story platform where users share and discover university ex
 
 ## Screenshots
 
-| Home Feed | Story Detail | Admin Dashboard |
-|---|---|---|
-| ![Home feed](screenshots/home-feed.png) | ![Story detail](screenshots/story-detail.png) | ![Admin dashboard](screenshots/admin-dashboard-new.png) |
-| **Discover Journeys** | **User Profile** | **Notifications** |
-| ![Discover](screenshots/discover.png) | ![Profile](screenshots/profile.png) | ![Notifications](screenshots/notifications.png) |
+| Admin Dashboard | Discover Journeys |
+|---|---|
+| ![Admin dashboard](screenshots/admin-dashboard-new.png) | ![Discover](screenshots/discover.png) |
+| **User Profile** | **Notifications** |
+| ![Profile](screenshots/profile.png) | ![Notifications](screenshots/notifications.png) |
 
 ## Architecture
 
