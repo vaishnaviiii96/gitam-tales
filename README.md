@@ -101,7 +101,7 @@ GitamTales-main/
 
 *(Update to match your actual schema)*
 
-**users** — id, name, email, password (bcrypt hash), role (user/admin), created_at, reset_otp_hash, reset_otp_expires
+**users** — id, name, email, password (bcrypt hash), role (user/admin), created_at, reset_token, reset_token_expires
 
 **tales** — id, user_id (FK), title, content, status (published/flagged/rejected), moderation_score, created_at, updated_at
 
@@ -109,7 +109,7 @@ GitamTales-main/
 
 *(Update to match your actual route handlers)*
 
-**Auth** — `POST /api/auth/login`, `/register`, `/forgot-password`, `/verify-otp`, `/reset-password`
+**Auth** — `POST /api/auth/login`, `/signup`, `/forgot-password`, `/reset-password`
 
 **Tales** — `GET /api/tales` (feed), `/api/tales/:id` · `POST /api/tales` submit (runs through moderation) · `PUT /api/tales/:id` edit · `DELETE /api/tales/:id`
 
@@ -148,9 +148,6 @@ FRONTEND_URL=http://localhost:8000
 
 `npm start` for the backend. In a separate terminal at the project root: `python -m http.server 8000` or `npx serve .` for the frontend.
 
-## CI/CD
-
-GitHub Actions runs on every push — install, lint, and build checks — to keep `main` deployable at all times. 
 
 ## License
 
