@@ -469,8 +469,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         const verifiedBadge = isAdmin ? `<svg class="w-4 h-4 flex-shrink-0 inline ml-1" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#006A60"/><path d="M6.5 12.5l3.5 3.5 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` : '';
         const upcomingBadge = isUpcoming ? `<span class="bg-amber-100 text-amber-700 border border-amber-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Upcoming</span>` : '';
 
-        const coverImageHTML = tale.cover_image
-            ? `<img src="${API_BASE}/uploads/${tale.cover_image}" alt="Cover" class="w-full h-auto max-h-96 object-cover rounded-lg my-4 border border-[#e5ebe9]">`
+        const coverImgUrl = tale.cover_image ? (tale.cover_image.startsWith('http') ? tale.cover_image : `${API_BASE}/uploads/${tale.cover_image}`) : null;
+        const coverImageHTML = coverImgUrl
+            ? `<img src="${coverImgUrl}" alt="Cover" class="w-full h-auto max-h-96 object-cover rounded-lg my-4 border border-[#e5ebe9]">`
             : '';
 
         const tagsHTML = tale.tags

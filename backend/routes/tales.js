@@ -3,30 +3,23 @@ const router = express.Router();
 const pool = require('../db');
 const { verifyToken } = require('../middleware/auth');
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
 const path = require('path');
 const { moderateComment, moderate } = require('../utils/moderator');
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+// Cloudinary automatically picks up CLOUDINARY_URL from process.env
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'gitam_tales/covers',
+        allowed_formats: ['jpg', 'png', 'jpeg', 'webp', 'gif'],
     },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname))
-    }
 });
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 },
-    fileFilter: (req, file, cb) => {
-        const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-        if (allowed.includes(file.mimetype)) {
-            cb(null, true);
-        } else {
-            cb(new Error('Only image files are allowed (jpg, png, webp, gif)'));
-        }
-    }
+    limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 // POST /api/tales - Create a new tale
@@ -34,7 +27,7 @@ router.post('/', verifyToken, upload.single('cover_image'), async (req, res) => 
     try {
         const { title, category, description, tags, event_date, created_at } = req.body;
         const userId = req.user.id;
-        const coverImage = req.file ? req.file.filename : null;
+        const coverImage = req.file ? req.file.path : null;
 
         const titleCheck = await moderate(title, 'title');
         if (!titleCheck.allowed) {
@@ -283,7 +276,7 @@ router.put('/:id', verifyToken, upload.single('cover_image'), async (req, res) =
             }
         }
 
-        const coverImage = req.file ? req.file.filename : null;
+        const coverImage = req.file ? req.file.path : null;
 
         let query, values;
         if (coverImage) {

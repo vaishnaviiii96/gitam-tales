@@ -138,8 +138,9 @@ function showTaleInModal(tale) {
         }
     } catch (e) {}
 
-    const coverImageHTML = tale.cover_image
-        ? `<img src="${API_BASE}/uploads/${tale.cover_image}" alt="Cover" class="w-full rounded-lg my-4 object-cover max-h-80">`
+    const coverImgUrl = tale.cover_image ? (tale.cover_image.startsWith('http') ? tale.cover_image : `${API_BASE}/uploads/${tale.cover_image}`) : null;
+    const coverImageHTML = coverImgUrl
+        ? `<img src="${coverImgUrl}" alt="Cover" class="w-full rounded-lg my-4 object-cover max-h-80">`
         : '';
 
     if (modalTitle) modalTitle.textContent = tale.title || 'Tale Details';
@@ -268,7 +269,7 @@ function createDiscoverCard(tale) {
         ? tale.author_avatar
         : `https://placehold.co/40x40/e0e7ff/3730a3?text=${authorName.charAt(0).toUpperCase()}`;
     const coverImage = tale.cover_image
-        ? `${API_BASE}/uploads/${tale.cover_image}`
+        ? (tale.cover_image.startsWith('http') ? tale.cover_image : `${API_BASE}/uploads/${tale.cover_image}`)
         : `https://placehold.co/600x400/007367/ffffff?text=${encodeURIComponent(tale.category || 'Tale')}`;
 
     return `

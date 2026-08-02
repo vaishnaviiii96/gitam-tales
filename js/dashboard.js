@@ -213,8 +213,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } catch (e) {}
 
-        const coverImageHTML = tale.cover_image
-            ? `<img src="${API_BASE}/uploads/${tale.cover_image}" alt="Cover" class="w-full rounded-lg mb-4 object-cover max-h-96">`
+        const coverImgUrl = tale.cover_image ? (tale.cover_image.startsWith('http') ? tale.cover_image : `${API_BASE}/uploads/${tale.cover_image}`) : null;
+        const coverImageHTML = coverImgUrl
+            ? `<img src="${coverImgUrl}" alt="Cover" class="w-full rounded-lg mb-4 object-cover max-h-96">`
             : '';
 
         const tagsHTML = tale.tags
@@ -368,16 +369,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         const coverPreviewWrap = document.getElementById('cover-image-preview-wrap');
         const coverPreviewImg = document.getElementById('cover-image-preview');
         if (tale.cover_image) {
+            const coverImgUrl = tale.cover_image.startsWith('http') ? tale.cover_image : `${API_BASE}/uploads/${tale.cover_image}`;
             if (!coverPreviewWrap) {
                 const coverInput = document.getElementById('cover-image');
                 const previewDiv = document.createElement('div');
                 previewDiv.id = 'cover-image-preview-wrap';
                 previewDiv.className = 'mt-2';
-                previewDiv.innerHTML = `<p class="text-xs text-gray-400 mb-1">Current image:</p><img id="cover-image-preview" src="${API_BASE}/uploads/${tale.cover_image}" class="w-full max-h-40 object-cover rounded-lg border border-gray-200">`;
+                previewDiv.innerHTML = `<p class="text-xs text-gray-400 mb-1">Current image:</p><img id="cover-image-preview" src="${coverImgUrl}" class="w-full max-h-40 object-cover rounded-lg border border-gray-200">`;
                 coverInput?.insertAdjacentElement('afterend', previewDiv);
             } else {
                 coverPreviewWrap.classList.remove('hidden');
-                if (coverPreviewImg) coverPreviewImg.src = `${API_BASE}/uploads/${tale.cover_image}`;
+                if (coverPreviewImg) coverPreviewImg.src = coverImgUrl;
             }
         } else {
             document.getElementById('cover-image-preview-wrap')?.classList.add('hidden');

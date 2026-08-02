@@ -181,8 +181,9 @@ function shuffleArray(arr) {
                 </div>`;
         }
 
-        const coverImageHTML = tale.cover_image
-            ? `<img src="${API_BASE}/uploads/${tale.cover_image}" alt="Cover" class="w-full rounded-xl mb-5 object-cover max-h-80 border border-gray-100">`
+        const coverImgUrl = tale.cover_image ? (tale.cover_image.startsWith('http') ? tale.cover_image : `${API_BASE}/uploads/${tale.cover_image}`) : null;
+        const coverImageHTML = coverImgUrl
+            ? `<img src="${coverImgUrl}" alt="Cover" class="w-full rounded-xl mb-5 object-cover max-h-80 border border-gray-100">`
             : '';
 
         const tagsHTML = tale.tags
@@ -577,8 +578,9 @@ if (noFiltersActive) shuffleArray(allTales);
                 postDate = dateFns.formatDistanceToNow(new Date(tale.created_at), { addSuffix: true });
             }
         } catch (e) {}
-        const coverImageHTML = tale.cover_image
-            ? `<img src="${API_BASE}/uploads/${tale.cover_image}" alt="Cover" class="w-full h-auto max-h-60 object-cover rounded-md my-3 border border-gray-100">`
+        const coverImgUrl = tale.cover_image ? (tale.cover_image.startsWith('http') ? tale.cover_image : `${API_BASE}/uploads/${tale.cover_image}`) : null;
+        const coverImageHTML = coverImgUrl
+            ? `<img src="${coverImgUrl}" alt="Cover" class="w-full h-auto max-h-60 object-cover rounded-md my-3 border border-gray-100">`
             : '';
         const tagsHTML = tale.tags
             ? tale.tags.split(',').map(tag => `<span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">#${tag.trim()}</span>`).join('')
