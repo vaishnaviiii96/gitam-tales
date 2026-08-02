@@ -163,7 +163,7 @@ FRONTEND_URL=http://localhost:8000
 
 ## CI/CD
 
-GitHub Actions runs on every push — install, lint, and build checks — to keep `main` deployable at all times. *(Add your workflow badge here once the repo is public, e.g. `![CI](https://github.com/<user>/<repo>/actions/workflows/ci.yml/badge.svg)`)*
+GitHub Actions runs on every push — install, lint, and build checks — to keep `main` deployable at all times. 
 
 ## License
 
