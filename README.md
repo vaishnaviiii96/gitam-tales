@@ -22,7 +22,7 @@ A full-stack student story platform where users share and discover university ex
 flowchart TD
     A[Browser frontend - Vanilla JS] --> B[Express server]
     B --> C[JWT auth middleware - per route]
-    B --> D[Groq moderation pipeline - llama-3.3-70b]
+    B --> D[Google Gemini API moderation pipeline]
     C --> E[Routes: auth, tales, user, notifications, admin]
     D --> E
     E --> F[(PostgreSQL)]
@@ -47,7 +47,7 @@ flowchart TD
 - Password reset link via Resend, token expires in 1 hour
 
 **Content Moderation**
-- Every submitted story is passed through the Groq SDK before it's written to the database
+- Every submitted story is passed through the Google Gemini API before it's written to the database
 - Flagged/toxic content is rejected or held for review instead of being published automatically
 
 **Admin**
