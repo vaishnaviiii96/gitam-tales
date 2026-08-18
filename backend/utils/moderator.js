@@ -1,8 +1,4 @@
-const Groq = require('groq-sdk');
-
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY
-});
+// OpenRouter API — no SDK needed, uses native fetch
 
 
 
@@ -28,16 +24,24 @@ async function moderate(text, context = 'comment') {
         return { allowed: false, reason: `${limit.label} is too long. Maximum ${limit.max} characters.` };
     }
 
-    // Strip HTML tags from description before sending to Groq
+    // Strip HTML tags from description before sending to OpenRouter
     const cleanText = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 
     try {
-        const response = await groq.chat.completions.create({
-            model: 'llama-3.3-70b-versatile',
-            messages: [
-                {
-                    role: 'system',
-                    content: `You are a content moderation system for a university student portfolio platform called GitamTales.
+        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                'HTTP-Referer': process.env.FRONTEND_URL || 'https://gitam-tales.vercel.app',
+                'X-Title': 'GitamTales'
+            },
+            body: JSON.stringify({
+                model: 'meta-llama/llama-3.3-70b-instruct',
+                messages: [
+                    {
+                        role: 'system',
+                        content: `You are a content moderation system for a university student portfolio platform called GitamTales.
 Your job is to decide if the submitted content is appropriate for a professional academic platform.
 
 Reject content that contains:
@@ -60,17 +64,35 @@ Respond ONLY with a JSON object in this exact format, nothing else:
 {"allowed": true}
 OR
 {"allowed": false, "reason": "one sentence explanation for the user"}`
-                },
-                {
-                    role: 'user',
-                    content: `Moderate this ${context}: "${cleanText}"`
-                }
-            ],
-            temperature: 0,
-            max_tokens: 60
+                    },
+                    {
+                        role: 'user',
+                        content: `Moderate this ${context}: "${cleanText}"`
+                    }
+                ],
+                temperature: 0,
+                max_tokens: 60
+            })
         });
 
-        const raw = response.choices[0]?.message?.content?.trim();
+        // Surface HTTP-level errors (401 bad key, 404 model not found, 429 rate limit, etc.)
+        if (!res.ok) {
+            const errBody = await res.json().catch(() => ({}));
+            console.error('[Moderator] OpenRouter HTTP error:', res.status, res.statusText, JSON.stringify(errBody));
+            throw new Error(`OpenRouter responded with ${res.status}: ${errBody?.error?.message || res.statusText}`);
+        }
+
+        const data = await res.json();
+
+        // Debug: log full response so issues are visible in server logs
+        console.log('[Moderator] OpenRouter raw response:', JSON.stringify(data));
+
+        const raw = data.choices[0]?.message?.content?.trim();
+        if (!raw) {
+            console.error('[Moderator] No content in response. Full data:', JSON.stringify(data));
+            throw new Error('OpenRouter returned no content in choices[0].message.content');
+        }
+
         const result = JSON.parse(raw);
 
         return {
@@ -79,9 +101,10 @@ OR
         };
 
     } catch (err) {
-        console.error('Moderation error:', err.message);
-        // If Groq fails, allow through so a temporary API issue
-        // doesn't break the platform
+        // Log the full error — do NOT silently swallow it
+        console.error('[Moderator] Error during moderation:', err.message);
+        // Fail-open: allow content through so an API outage doesn't break the platform.
+        // Remove this fallback and return { allowed: false } here if you prefer fail-closed.
         return { allowed: true, reason: null };
     }
 }
