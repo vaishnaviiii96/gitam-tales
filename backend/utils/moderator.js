@@ -1,9 +1,7 @@
 // Gemini API (Google AI Studio free tier) — no SDK needed, uses native fetch
 
-
-
 async function moderate(text, context = 'comment') {
-     console.log('MODERATE CALLED - context:', context, 'text:', text?.substring(0, 50));
+    console.log('MODERATE CALLED - context:', context, 'text:', text?.substring(0, 50));
     if (!text || text.trim().length === 0) {
         return { allowed: false, reason: 'This field cannot be empty.' };
     }
